@@ -109,9 +109,6 @@ def create_app(test_config=None):
   @app.route('/questions/search', methods=['POST'])
   def search_questions():
     try:
-      #Initialize variables
-      results = {}
-      data = []
       search_term = request.form.get('input')
       search = "%{}%".format(search_term)
       search_results = Question.query.filter(Question.question.like(search)).all()
@@ -128,7 +125,7 @@ def create_app(test_config=None):
     except:
       abort(422)
 
-  #@TODO: Create a GET endpoint to get questions based on category. 
+  #@TODO: Create a GET endpoint to get questions based on category. --> DONE
   #TEST: In the "List" tab / main screen, clicking on one of the categories in the left column will cause only questions of that category to be shown. 
   @app.route('/categories/<int:id>/questions', methods=['GET'])
   def category_questions(id):
