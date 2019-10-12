@@ -6,6 +6,15 @@ import random
 from models import setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
+def paginate_questions(request, selection):
+  page = request.args.get('page',1,type=int)
+  start =(page-1)*QUESTIONS_PER_PAGE
+  end =start + QUESTIONS_PER_PAGE
+
+  questions = [quetion.format() for question in selection]
+  current_question = questions[start:end]
+
+  return current_question
 
 def create_app(test_config=None):
   # create and configure the app
@@ -108,8 +117,22 @@ def create_app(test_config=None):
 @TODO: 
 Create error handlers for all expected errors 
 including 404 and 422. 
-'''
-  
- 
 
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False, 
+        "error": 404,
+        "message": "Not found"
+        }), 404
+
+@app.errorhandler(422)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "Unprocessable Entity"
+        }), 422
+ 
+'''
     
