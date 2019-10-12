@@ -48,10 +48,10 @@ def create_app(test_config=None):
     questions = Question.query.all()
     categories = Category.query.all()
 
-    fixed_question = paginate_questions(request,questions)
+    fixed_questions = paginate_questions(request,questions)
     fixed_categories = [category.format() for category in categories]
 
-    if len(fixed_question) == 0:
+    if len(fixed_questions) == 0:
       abort(404)
 
     return jsonify({
@@ -59,7 +59,7 @@ def create_app(test_config=None):
       'questions':fixed_questions,
       'total_questions': len(questions),
       'categories': fixed_categories,
-      #'current_category': pending to see
+      'current_category': list(set([fixed_question['category']for fixed_question in fixed_questions]))
     })
   
   #@TODO: Create an endpoint to DELETE question using a question ID. --> DONE
@@ -131,7 +131,9 @@ def create_app(test_config=None):
   def category_questions(id):
     try:
       questions = Question.query.join(Category).filter(Category.id==id).all()
+      categories = Category.query(Category.type).filter(Category.id==id).first()
       fixed_questions = paginate_questions(request,questions)
+      fixed_category = [category.format() for category in categories]
 
       if len(questions) ==0:
         abort(404)
@@ -139,7 +141,8 @@ def create_app(test_config=None):
       return jsonify({
         'success':True,
         'questions':fixed_questions,
-        'total_questions':len(questions)
+        'total_questions':len(questions),
+        'current_category': fixed_category
       })
     except:
       abort(422)
