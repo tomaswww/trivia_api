@@ -40,8 +40,16 @@ def create_app(test_config=None):
   #TEST: At this point, when you start the applicationyou should see questions and categories generated, ten questions per page and pagination at the bottom of the screen for three pages. Clicking on the page numbers should update the questions.
   @app.route('/categories/<int:id>/questions', methods=['GET'])
   def get_questions(id):
-    questions = db.session.query(categories).join(questions).filter(categories.id == id).all()
-    return questions
+    request = db.session.query(categories).join(questions).filter(categories.id == id).all()
+    current_questions = paginate_questions(request,selection)
+    if len(current_questions) ==0:
+      abort(404)
+
+    return jsonify({
+      'success': True,
+      'questions':current_questions,
+      'total_questions': len(questions.query.all())
+    })
   
   #@TODO: Create an endpoint to DELETE question using a question ID.
   #TEST: When you click the trash icon next to a question, the question will be removed. This removal will persist in the database and when you refresh the page.
@@ -102,6 +110,31 @@ def create_app(test_config=None):
     questions = db.session.query(questions.question,questions.category).join(categories).filter(categories.id==id).all()
   #to continue what to return
 
+  #@TODO: Create error handlers for all expected errors including 404 and 422. 
+  @app.errorhandler(404)
+  def not_found(error):
+      return jsonify({
+          "success": False, 
+          "error": 404,
+          "message": "Not found"
+          }), 404
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+      return jsonify({
+          "success": False,
+          "error": 422,
+          "message": "Unprocessable Entity"
+          }), 422
+
+  @app.errorhandler(405)
+  def method_not_allowed(error):
+      return jsonify({
+          "success": False,
+          "error": 405,
+          "message": "Method not allowed"
+          }), 405
+
   return app
 
 
@@ -114,25 +147,7 @@ def create_app(test_config=None):
 '''
 
 '''
-@TODO: 
-Create error handlers for all expected errors 
-including 404 and 422. 
 
-@app.errorhandler(404)
-def not_found(error):
-    return jsonify({
-        "success": False, 
-        "error": 404,
-        "message": "Not found"
-        }), 404
-
-@app.errorhandler(422)
-def not_found(error):
-    return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "Unprocessable Entity"
-        }), 422
  
 '''
     
