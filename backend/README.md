@@ -103,7 +103,7 @@ It should also include an object with a single key, questions, that contains a o
 '4' : "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?",
 '5' : "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?",
 '5' : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?",
-'9' : "SWhat boxer's original name is Cassius Clay?"}
+'9' : "What boxer's original name is Cassius Clay?"}
 ```
 ***
 <h4 id="getQuestions2"></h4>
