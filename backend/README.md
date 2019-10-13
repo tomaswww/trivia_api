@@ -64,8 +64,10 @@ In order to play the game, a number of operations take place, each one of them b
 - POST question (search question)
 - POST quizzes (to play game)
 
+<hr>
 
-> ###GET '/categories'
+
+> **GET '/categories'**
 
 This endpoint fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 
