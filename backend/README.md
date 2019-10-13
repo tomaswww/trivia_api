@@ -56,24 +56,25 @@ Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` d
 
 In order to play the game, a number of operations take place, each one of them belong to a specific endpoint. The available operations are:
 
-- GET categories
-- GET questions
-- GET questions (for a specific category)
-- DELETE question
-- POST question (create question)
-- POST question (search question)
-- POST quizzes (to play game)
+- [GET categories](#getCategories)
+- [GET questions](#getQuestions1)
+- [GET questions (for a specific category)](#getQuestions2)
+- [DELETE question](#deleteQuestion)
+- [POST question (create question)](#createQuestion)
+- [POST question (search question)](#postQuestion)
+- [POST quizzes (to play game)](#postQuizzes)
 
-<hr>
-
+***
+<h4 id="getCategories"></h4>
 
 > **GET '/categories'**
 
 This endpoint fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 
-Request Arguments: None
+**Request Arguments:** 
+- *None*
 
-Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+**Returns:** An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
 
 ```javascript
 {'1' : "Science",
@@ -84,6 +85,121 @@ Returns: An object with a single key, categories, that contains a object of id: 
 '6' : "Sports"}
 ```
 
+<h4 id="getQuestions1"></h4>
+
+> **GET '/questions'**
+
+This endpoint fetches a dictionary of questions available.
+
+**Request Arguments:** 
+- *None*
+
+**Returns:** An object with a single key, questions, that contains a object of id: question_string key:value pairs. 
+
+```javascript
+{'2' : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+'4' : "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?",
+'5' : "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?",
+'5' : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?",
+'9' : "SWhat boxer's original name is Cassius Clay?"}
+```
+
+<h4 id="getQuestions2"></h4>
+
+> **GET '/categories/<id>/questions'**
+
+This endpoint fetches a dictionary of questions available for a specific category.
+
+**Request Arguments:** 
+- *id of the category*
+
+**Returns:** An object with a single key, questions, that contains a object of id: question_string key:value pairs. 
+
+For example, for category id=1, response should look something like this:
+
+```javascript
+{'21' : "Who discovered penicillin?",
+'22' : "Hematology is a branch of medicine involving the study of what?",
+'20' : "What is the heaviest organ in the human body?",
+}
+```
+
+<h4 id="deleteQuestion"></h4>
+
+> **DELETE '/questions/<id>'**
+
+This endpoint allows you to delete a question, based on its id.
+
+**Request Arguments:** 
+- *id of the question to delete*
+
+**Returns:** An object with a success message, the id of the question deleted and the new amount of questions avaibale. 
+
+For example, for question id=1, if we had 21 questions, response should look somethinkg like this:
+
+```javascript
+{'success' : True,
+'deleted' : 1,
+'total_questions' : 20,
+}
+```
+<h4 id="createQuestion"></h4>
+
+> **POST '/questions'**
+
+This endpoint allows you to POST a new question.
+
+**Request Arguments:** 
+- *question* (Text)
+- *answer* (Text)
+- *difficulty* (integer) 1 to 4.
+- *category* (integer) 1 to 6.
+
+**Returns:** An object with a success message, the id of the question created and the new amount of questions avaibale. 
+
+For example, for question id=1, if we had 21 questions, response should look somethinkg like this:
+
+```javascript
+{'success' : True,
+'created' : 25,
+'total_questions' : 21,
+}
+```
+<h4 id="searchQuestion"></h4>
+
+> **POST '/questions/search'**
+
+This endpoint allows you to search for a question based on a search term, it is case sensitive.
+
+**Request Arguments:** 
+- *search_term* (Text)
+
+**Returns:** An object with a success message, the questions that match the criteria and the amount of these questions. 
+
+For example, for search_term='title', response should look somethinkg like this:
+
+```javascript
+{'success' : True,
+'questions' : [Question1,Question2],
+'total_questions' : 2,
+}
+```
+<h4 id="postQuizzes"></h4>
+
+> **POST '/quizzes'**
+
+This endpoint allows you to play the game by getting a random question.
+
+**Request Arguments:** 
+- *None*
+
+**Returns:** An object with a success message and the new random question: It response should look somethinkg like this:
+
+```javascript
+{'success' : True,
+'questions' : 'some random question'
+}
+```
 
 ## Testing
 To run the tests, run
