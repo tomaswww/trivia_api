@@ -74,7 +74,8 @@ This endpoint fetches a dictionary of categories in which the keys are the ids a
 **Request Arguments:** 
 - *None*
 
-**Returns:** An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+**Returns:** The return should include an success: True message along with the total categories (amount).
+Also should include an object with a single key, categories, that contains a object of id: category_string key:value pairs, something like this:
 
 ```javascript
 {'1' : "Science",
@@ -84,7 +85,7 @@ This endpoint fetches a dictionary of categories in which the keys are the ids a
 '5' : "Entertainment",
 '6' : "Sports"}
 ```
-
+***
 <h4 id="getQuestions1"></h4>
 
 > **GET '/questions'**
@@ -94,7 +95,8 @@ This endpoint fetches a dictionary of questions available.
 **Request Arguments:** 
 - *None*
 
-**Returns:** An object with a single key, questions, that contains a object of id: question_string key:value pairs. 
+**Returns:** The return should include an success: True message along with the amount of questions available, the categories and current_category.
+It should also include an object with a single key, questions, that contains a object of id: question_string key:value pairs, like this:
 
 ```javascript
 {'2' : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
@@ -103,17 +105,18 @@ This endpoint fetches a dictionary of questions available.
 '5' : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?",
 '9' : "SWhat boxer's original name is Cassius Clay?"}
 ```
-
+***
 <h4 id="getQuestions2"></h4>
 
-> **GET '/categories/<id>/questions'**
+> **GET '/categories/"id"/questions'**
 
 This endpoint fetches a dictionary of questions available for a specific category.
 
 **Request Arguments:** 
 - *id of the category*
 
-**Returns:** An object with a single key, questions, that contains a object of id: question_string key:value pairs. 
+**Returns:** The return should include an success: True message along with the amount of questions available on that category and current_category.
+It should also include an object with a single key, questions, that contains a object of id: question_string key:value pairs. 
 
 For example, for category id=1, response should look something like this:
 
@@ -123,10 +126,10 @@ For example, for category id=1, response should look something like this:
 '20' : "What is the heaviest organ in the human body?",
 }
 ```
-
+***
 <h4 id="deleteQuestion"></h4>
 
-> **DELETE '/questions/<id>'**
+> **DELETE '/questions/"id"'**
 
 This endpoint allows you to delete a question, based on its id.
 
@@ -143,6 +146,7 @@ For example, for question id=1, if we had 21 questions, response should look som
 'total_questions' : 20,
 }
 ```
+***
 <h4 id="createQuestion"></h4>
 
 > **POST '/questions'**
@@ -165,6 +169,7 @@ For example, for question id=1, if we had 21 questions, response should look som
 'total_questions' : 21,
 }
 ```
+***
 <h4 id="searchQuestion"></h4>
 
 > **POST '/questions/search'**
@@ -184,6 +189,7 @@ For example, for search_term='title', response should look somethinkg like this:
 'total_questions' : 2,
 }
 ```
+***
 <h4 id="postQuizzes"></h4>
 
 > **POST '/quizzes'**
