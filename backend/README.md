@@ -113,7 +113,7 @@ It should also include an object with a single key, questions, that contains a o
 This endpoint fetches a dictionary of questions available for a specific category.
 
 **Request Arguments:** 
-- *id of the category*
+- *id* (integer) of the category
 
 **Returns:** The return should include an success: True message along with the amount of questions available on that category and current_category.
 It should also include an object with a single key, questions, that contains a object of id: question_string key:value pairs. 
@@ -134,7 +134,7 @@ For example, for category id=1, response should look something like this:
 This endpoint allows you to delete a question, based on its id.
 
 **Request Arguments:** 
-- *id of the question to delete*
+- *id* (integer) of the question to delete.
 
 **Returns:** An object with a success message, the id of the question deleted and the new amount of questions avaibale. 
 
