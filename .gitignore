@@ -2,3 +2,4 @@ trivia_api/backend/env/**
 *.pyc
 trivia_api/.mypy_cache/**
 /backend/__pychache__/**
+./frontend/node_modules
