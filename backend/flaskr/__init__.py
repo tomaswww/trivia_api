@@ -158,18 +158,21 @@ def create_app(test_config=None):
   def play():
     #DATA returned from the FE
     data = request.get_json()
+    print(data)
     previous_questions = data['previous_questions']
     quiz_category = data['quiz_category']
+    print(quiz_category)
     
     #Logic here
     #1.Check if user provided category
-    if quiz_category['id']:
-      questions = Question.query.join(Category.id).filter(Category.id==quiz_category['id']).all()
+    if quiz_category:
+      questions = Question.query.filter_by(category = quiz_category).all()
     else:
       questions = Question.query.all()
     fixed_questions = [question.format() for question in questions]
     #2.Check if that question has been used before
     questions_available =[]
+    print(fixed_questions)
     for fixed_question in fixed_questions:
       if fixed_question['id'] not in previous_questions:
         questions_available.append(fixed_question)
