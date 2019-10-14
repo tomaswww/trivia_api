@@ -1,5 +1,7 @@
-env/
+env
 *.pyc
-trivia_api/.mypy_cache/**
-backend/__pychache__/**
-frontend/node_modules/
+.vscode
+__pycache__
+venv
+frontend/node_modules
+env
