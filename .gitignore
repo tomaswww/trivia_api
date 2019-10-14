@@ -1,4 +1,4 @@
-backend/env
+/backend/env
 *.pyc
-/.mypy_cache/*
-backend/__pychache__
+/.mypy_cache
+/backend/__pychache__
