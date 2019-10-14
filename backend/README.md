@@ -75,15 +75,36 @@ This endpoint fetches a dictionary of categories in which the keys are the ids a
 - *None*
 
 **Returns:** The return should include an success: True message along with the total categories (amount).
-Also should include an object with a single key, categories, that contains a object of id: category_string key:value pairs, something like this:
+Also should include an object with a single key, categories, that contains a object of id & category each of key:value pairs, something like this:
 
 ```javascript
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+{
+    "categories": [
+        {
+            "id": 1,
+            "type": "Science"
+        },
+        {
+            "id": 2,
+            "type": "Art"
+        },
+        {
+            "id": 3,
+            "type": "Geography"
+        },
+        {
+            "id": 4,
+            "type": "History"
+        },
+        {
+            "id": 5,
+            "type": "Entertainment"
+        },
+        {
+            "id": 6,
+            "type": "Sports"
+        }
+    ]}
 ```
 ***
 <h4 id="getQuestions1"></h4>
@@ -96,14 +117,26 @@ This endpoint fetches a dictionary of questions available.
 - *None*
 
 **Returns:** The return should include an success: True message along with the amount of questions available, the categories and current_category.
-It should also include an object with a single key, questions, that contains a object of id: question_string key:value pairs, like this:
+It should also include an object with a single key, questions, that contains a object of id, category, difficulty, answer and question, each of key:value pairs, like this:
 
 ```javascript
-{'2' : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
-'4' : "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?",
-'5' : "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?",
-'5' : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?",
-'9' : "What boxer's original name is Cassius Clay?"}
+{
+"questions": [
+        {
+            "answer": "Maya Angelou",
+            "category": 4,
+            "difficulty": 2,
+            "id": 5,
+            "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        },
+        {
+            "answer": "Muhammad Ali",
+            "category": 4,
+            "difficulty": 1,
+            "id": 9,
+            "question": "What boxer's original name is Cassius Clay?"
+        }]
+}
 ```
 ***
 <h4 id="getQuestions2"></h4>

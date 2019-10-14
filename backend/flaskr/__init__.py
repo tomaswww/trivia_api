@@ -18,15 +18,16 @@ def paginate_questions(request, questions):
 
 def create_app(test_config=None):
   # create and configure the app
-  app = Flask(__name__, instance_relative_config=True)
-  #@TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs --> DONE
-  CORS(app, resources={r"/api/*": {"origins": "*"}})
+  app = Flask(__name__)
   setup_db(app)
+  #@TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs --> DONE
+  CORS(app)
+  
   
   #@TODO: Use the after_request decorator to set Access-Control-Allow --> DONE
   @app.after_request
   def after_request(response):
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
     return response
 
@@ -221,7 +222,7 @@ def create_app(test_config=None):
             "success": False,
             "error": 500,
             "message": "Internal server error"
-        }), 500
+        }), 500 
 
   return app
 
