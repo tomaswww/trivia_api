@@ -69,6 +69,7 @@ def create_app(test_config=None):
   def delete_question(id):
     try:
       question = Question.query.filter_by(Question.id==id).one_or_none()
+      print(question)
 
       if question is None:
         abort(404)
@@ -133,9 +134,10 @@ def create_app(test_config=None):
   #TEST: In the "List" tab / main screen, clicking on one of the categories in the left column will cause only questions of that category to be shown. 
   @app.route('/categories/<int:id>/questions', methods=['GET'])
   def category_questions(id):
+    category_id = str(id)
     try:
-      questions = Question.query.join(Category).filter(Category.id==id).all()
-      categories = Category.query(Category.type).filter(Category.id==id).first()
+      questions = Question.query.filter_by(category = category_id).all()
+      categories = Category.query.filter_by(id=category_id).all()
       fixed_questions = paginate_questions(request,questions)
       fixed_category = [category.format() for category in categories]
 
