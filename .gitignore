@@ -1,4 +1,4 @@
-/backend/env/*
+trivia_api/backend/env/**
 *.pyc
-/.mypy_cache/*
-/backend/__pychache__/*
+trivia_api/.mypy_cache/**
+/backend/__pychache__/**
