@@ -68,9 +68,7 @@ def create_app(test_config=None):
   @app.route('/questions/<int:id>', methods=['DELETE'])
   def delete_question(id):
     try:
-      question = Question.query.filter_by(Question.id==id).one_or_none()
-      print(question)
-
+      question = Question.query.filter_by(id = str(id)).one_or_none()
       if question is None:
         abort(404)
       else:
