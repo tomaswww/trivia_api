@@ -1,8 +1,7 @@
 env
-*.pyc
+venv
+.pyc
 .vscode
 __pycache__
-venv
 frontend/node_modules
-env
 .mypy__cache
