@@ -69,19 +69,17 @@ def create_app(test_config=None):
   def delete_question(id):
     try:
       question = Question.query.filter_by(id = str(id)).one_or_none()
-      if question is None:
-        abort(404)
-      else:
-        question.delete()
-        current_questions = Question.query.all()
-        new_total = len(current_questions)
-        return jsonify({
-          'success':True,
-          'deleted':id,
-          'total_questions':new_total
-        })
-    except:
-      abort(422)
+
+      question.delete()
+      current_questions = Question.query.all()
+      new_total = len(current_questions)
+      return jsonify({
+        'success':True,
+        'deleted':id,
+        'total_questions':new_total
+      })
+    except Exception:
+      abort(404)
 
   #@TODO:Create an endpoint to POST a new question, which will require the question and answer text, category, and difficulty score.--> DONE
   #TEST: When you submit a question on the "Add" tab, the form will clear and the question will appear at the end of the last page of the questions list in the "List" tab.--> DONE
@@ -115,18 +113,16 @@ def create_app(test_config=None):
     try:
       search = "%{}%".format(search_term)
       search_results = Question.query.filter(Question.question.ilike(search)).all()
-      fixed_results = paginate_questions(request,search_results)
-
-      if len(search_results)==0:
+      fixed_results = paginate_questions(request, search_results)
+      if len(fixed_results)==0:
         abort(404)
-      
       return jsonify({
         'success':True,
         'questions': fixed_results,
         'total_questions':len(search_results)
       })
-    except:
-      abort(422)
+    except Exception:
+      abort(404)
 
   #@TODO: Create a GET endpoint to get questions based on category. --> DONE
   #TEST: In the "List" tab / main screen, clicking on one of the categories in the left column will cause only questions of that category to be shown. -->DONE
@@ -138,18 +134,16 @@ def create_app(test_config=None):
       categories = Category.query.filter_by(id=category_id).all()
       fixed_questions = paginate_questions(request,questions)
       fixed_category = [category.format() for category in categories]
-
-      if len(questions) ==0:
+      if len(fixed_questions)==0:
         abort(404)
-
       return jsonify({
         'success':True,
         'questions':fixed_questions,
         'total_questions':len(questions),
         'current_category': fixed_category
       })
-    except:
-      abort(422)
+    except Exception:
+      abort(404)
    
 
   #@TODO: Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category,if provided, and that is not one of the previous questions. --> DONE
