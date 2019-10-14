@@ -88,10 +88,12 @@ def create_app(test_config=None):
   #TEST: When you submit a question on the "Add" tab, the form will clear and the question will appear at the end of the last page of the questions list in the "List" tab.
   @app.route('/questions', methods=['POST'])
   def create_question():
-    question = request.form.get('question')
-    answer = request.form.get('answer')
-    difficulty = request.form.get('difficulty')
-    category = request.form.get('category')
+    data = request.get_json()
+
+    question = data.get('question')
+    answer = data.get('answer')
+    difficulty = data.get('difficulty')
+    category = data.get('category')
     try:
       question = Question(question=question,answer=answer,difficulty=difficulty,category=category)
       question.insert()
