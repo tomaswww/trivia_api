@@ -111,10 +111,11 @@ def create_app(test_config=None):
   #TEST: Search by any phrase. The questions list will update to include only question that include that string within their question. Try using the word "title" to start.
   @app.route('/questions/search', methods=['POST'])
   def search_questions():
+    data = request.get_json()
+    search_term = data['search_term']
     try:
-      search_term = request.form.get('input')
       search = "%{}%".format(search_term)
-      search_results = Question.query.filter(Question.question.like(search)).all()
+      search_results = Question.query.filter(Question.question.ilike(search)).all()
       fixed_results = paginate_questions(request,search_results)
 
       if len(search_results)==0:
