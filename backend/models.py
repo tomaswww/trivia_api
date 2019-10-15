@@ -8,6 +8,7 @@ database_path = 'postgresql://tomaswingord:tomasw87@localhost:5432/trivia'
 
 db = SQLAlchemy()
 
+
 '''
 setup_db(app)
     binds a flask application and a SQLAlchemy service
