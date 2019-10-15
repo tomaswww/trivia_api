@@ -34,9 +34,9 @@ def create_app(test_config=None):
     @app.after_request
     def after_request(response):
         response.headers.add('Access-Control-Allow-Headers',
-                      'Content-Type, Authorization, true')
+                             'Content-Type, Authorization, true')
         response.headers.add('Access-Control-Allow-Methods',
-                      'GET, POST, PATCH, DELETE, OPTIONS')
+                             'GET, POST, PATCH, DELETE, OPTIONS')
         return response
 
     # @TODO: Create an endpoint to handle GET requests for all available\
@@ -66,7 +66,8 @@ def create_app(test_config=None):
 
         fixed_questions = paginate_questions(request, questions)
         fixed_categories = [category.format() for category in categories]
-        category_items = [(category.id, category.type) for category in categories]
+        category_items = [(category.id,
+                          category.type) for category in categories]
 
         if len(fixed_questions) == 0:
             abort(404)
@@ -76,8 +77,9 @@ def create_app(test_config=None):
             'questions': fixed_questions,
             'total_questions': len(questions),
             'categories': fixed_categories,
-            'current_category': list(set([fixed_question['category']for
-                          fixed_question in fixed_questions]))
+            'current_category': list(set(
+                          [fixed_question['category']for
+                              fixed_question in fixed_questions]))
           })
 
     # @TODO: Create an endpoint to DELETE question using a question ID.\
@@ -118,8 +120,8 @@ def create_app(test_config=None):
         category = data.get('category')
         try:
             question = Question(question=question,
-                            answer=answer, difficulty=difficulty,
-                            category=category)
+                                answer=answer, difficulty=difficulty,
+                                category=category)
             question.insert()
             current_questions = Question.query.all()
             new_total = len(current_questions)
@@ -139,22 +141,23 @@ def create_app(test_config=None):
     # within their question. Try using the word "title" to start.--> DONE
     @app.route('/questions/search', methods=['POST'])
     def search_questions():
-      data = request.get_json()
-      search_term = data['searchTerm']
-      try:
-          search = "%{}%".format(search_term)
-          search_results = \
-                        Question.query.filter(Question.question.ilike(search)).all()
-          fixed_results = paginate_questions(request, search_results)
-          if len(fixed_results) == 0:
-              abort(404)
-          return jsonify({
-              'success': True,
-              'questions': fixed_results,
-              'total_questions': len(search_results)
-            })
-      except Exception:
-        abort(404)
+        data = request.get_json()
+        search_term = data['searchTerm']
+        try:
+            search = "%{}%".format(search_term)
+            search_results = \
+                Question.query.filter(
+                          Question.question.ilike(search)).all()
+            fixed_results = paginate_questions(request, search_results)
+            if len(fixed_results) == 0:
+                abort(404)
+            return jsonify({
+                'success': True,
+                'questions': fixed_results,
+                'total_questions': len(search_results)
+              })
+        except Exception:
+            abort(404)
 
     # @TODO: Create a GET endpoint to get questions based on category. --> DONE
     # TEST: In the "List" tab / main screen, clicking on one of the \
@@ -197,7 +200,8 @@ def create_app(test_config=None):
         # Logic here
         # 1.Check if user provided category
         if quiz_category:
-            questions = Question.query.filter_by(category=str(quiz_category)).all()
+            questions = Question.query.filter_by(
+                        category=str(quiz_category)).all()
         else:
             questions = Question.query.all()
         fixed_questions = [question.format() for question in questions]
@@ -255,10 +259,10 @@ def create_app(test_config=None):
 
     @app.errorhandler(500)
     def internal_server_error(error):
-      return jsonify({
-          "success": False,
-          "error": 500,
-          "message": "Internal server error"
-      }), 500
+        return jsonify({
+            "success": False,
+            "error": 500,
+            "message": "Internal server error"
+        }), 500
 
     return app
