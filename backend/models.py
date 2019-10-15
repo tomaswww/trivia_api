@@ -26,6 +26,8 @@ def setup_db(app, database_path=database_path):
 Question
 
 '''
+
+
 class Question(db.Model):
 
 
