@@ -1,7 +1,17 @@
-env
-venv
+# Distribution / packaging
 .pyc
 .vscode
 __pycache__
 frontend/node_modules
-.mypy__cache
+
+
+# Environments
+env
+venv
+.env
+.venv
+env/
+venv/
+
+# mypy
+.mypy_cache/
