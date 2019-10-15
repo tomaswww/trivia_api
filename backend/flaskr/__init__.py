@@ -189,11 +189,11 @@ def create_app(test_config=None):
       print(data)
       previous_questions = data['previous_questions']
       quiz_category = data['quiz_category']
-      quiz_category_fixed = quiz_category['id']
+      print(quiz_category)
       # Logic here
       # 1.Check if user provided category
-      if quiz_category_fixed:
-        questions = Question.query.filter_by(category=quiz_category_fixed).all()
+      if quiz_category:
+        questions = Question.query.filter_by(category=str(quiz_category)).all()
       else:
         questions = Question.query.all()
       fixed_questions = [question.format() for question in questions]
@@ -209,6 +209,7 @@ def create_app(test_config=None):
         abort(404)
       else:
         random_question = random.choice(questions_available)
+        print(random_question)
       return jsonify({
         'success': True,
         'question': random_question

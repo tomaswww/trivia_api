@@ -25,7 +25,7 @@ class QuizView extends Component {
       url: `/categories`, //TODO: update request URL
       type: "GET",
       success: (result) => {
-        this.setState({ categories: result.categories })
+        this.setState({ categories: result.categories})
         return;
       },
       error: (error) => {
@@ -54,7 +54,7 @@ class QuizView extends Component {
       contentType: 'application/json',
       data: JSON.stringify({
         previous_questions: previousQuestions,
-        quiz_category: this.state.quizCategory
+        quiz_category: this.state.quizCategory.id
       }),
       xhrFields: {
         withCredentials: true
@@ -111,7 +111,10 @@ class QuizView extends Component {
                       key={id}
                       value={id}
                       className="play-category"
-                      onClick={() => this.selectCategory({type:this.state.categories[id].id, id})}>
+                      onClick = {
+                        () => this.selectCategory({
+                          type: this.state.categories[id].type,id: this.state.categories[id].id})
+                      } >
                       {this.state.categories[id].type}
                     </div>
                   )
