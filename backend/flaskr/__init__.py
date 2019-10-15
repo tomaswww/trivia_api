@@ -63,6 +63,7 @@ def create_app(test_config=None):
 
       fixed_questions = paginate_questions(request, questions)
       fixed_categories = [category.format() for category in categories]
+      category_items = [(category.id, category.type) for category in categories]
 
       if len(fixed_questions) == 0:
         abort(404)
