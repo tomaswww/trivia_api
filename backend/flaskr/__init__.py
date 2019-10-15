@@ -189,11 +189,11 @@ def create_app(test_config=None):
       print(data)
       previous_questions = data['previous_questions']
       quiz_category = data['quiz_category']
-      print(quiz_category)
+      quiz_category_fixed = quiz_category['id']
       # Logic here
       # 1.Check if user provided category
-      if quiz_category:
-        questions = Question.query.filter_by(category=quiz_category).all()
+      if quiz_category_fixed:
+        questions = Question.query.filter_by(category=quiz_category_fixed).all()
       else:
         questions = Question.query.all()
       fixed_questions = [question.format() for question in questions]
