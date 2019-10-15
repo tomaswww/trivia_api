@@ -15,8 +15,8 @@ class TriviaTestCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "trivia_test"
-        self.database_path = "postgres://{}/{}".format(\
-            'tomaswingord:tomasw87@localhost:5432', \
+        self.database_path = "postgres://{}/{}".format(
+            'tomaswingord:tomasw87@localhost:5432',
             self.database_name)
         setup_db(self.app, self.database_path)
 
@@ -31,7 +31,7 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    # TODO: Write at least one test for each test for successful \ 
+    # TODO: Write at least one test for each test for successful \
     # operation and for expected errors. -- DONE
     def test_get_categories(self):
         res = self.client().get('/categories')
@@ -100,8 +100,8 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_search_question(self):
-        res = self.client().post('/questions/search', \
-            json={'searchTerm': "title"})
+        res = self.client().post('/questions/search',
+                                    json={'searchTerm': "title"})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -109,8 +109,8 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['total_questions'])
 
     def test_search_question_invalid(self):
-        res = self.client().post('/questions/search', \
-            json={'searchTerm': "doesnotexist"})
+        res = self.client().post('/questions/search',
+                                    json={'searchTerm': "doesnotexist"})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
@@ -129,7 +129,8 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
-        self.assertEqual(data['message'], 'Not found')  
+        self.assertEqual(data['message'], 'Not found')
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
