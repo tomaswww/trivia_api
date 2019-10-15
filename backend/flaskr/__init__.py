@@ -136,7 +136,7 @@ def create_app(test_config=None):
     @app.route('/questions/search', methods=['POST'])
     def search_questions():
       data = request.get_json()
-      search_term = data['search_term']
+      search_term = data['searchTerm']
       try:
         search = "%{}%".format(search_term)
         search_results = \
